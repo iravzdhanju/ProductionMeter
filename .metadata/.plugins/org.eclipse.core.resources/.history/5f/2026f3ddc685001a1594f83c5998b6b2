@@ -1,0 +1,139 @@
+package myPack;
+
+public class MyListIterator<T> {
+	private MyList<T> cur; // current node, as head of the “cur” list. 
+	private MyList<T> itnext; // next node, as head of the “itnext” list. 
+	private MyList<T> list; // MyList object upon which we iterate. 
+
+
+
+	private T t ;
+	private T[] Ts;
+	private int i ;
+	public MyList<T> getNext(){return this.itnext;}
+	public MyList<T> getPrevious(){return this.list;}
+
+	public void setNext(MyList<T> newNext) {
+		this.itnext = newNext;
+	}
+	public void setPrevious(MyList<T> newPrevious) {
+		this.list = newPrevious;
+	}
+	public T getData() {return this.t;}
+	public void setData(T newData) {
+		this.t = newData;
+	}
+	/*
+	private T data ;
+
+	public T getData() {
+		return this.data;
+	}
+	public void setData(T newData) {
+		this.data = newData;
+	}
+	 */
+
+	public MyListIterator(MyList<T> a) {
+		super();
+		this.cur =a;
+		this.itnext = new MyList<T>();
+		this.list = new MyList<T>();
+		//t = list.size()-1;
+
+	}
+	public boolean hasNext()  {
+		//return  cur != null;
+		return cur.iterator().cur.isEmpty();
+	}
+
+
+
+	public T next()  throws MLInvalidAccessException  {
+
+		if(!hasNext() ) {
+			throw new 	MLInvalidAccessException(11);		
+		}  
+
+		list = itnext;
+		itnext = cur;
+		cur = cur.iterator().getNext();
+		t = cur.iterator().getData();		 
+		return t;
+
+	}
+	//
+
+	/*
+	public T next2()  throws MLInvalidAccessException  {
+
+	if(! cur.iterator().hasNext()) {
+		throw new 	MLInvalidAccessException(11);	
+	}
+		while(cur.iterator().hasNext())
+		{
+			t= itnext.iterator().add(t);;
+		}
+		 	return t;	 
+	}*/
+	public boolean hasPrevious() {
+		return cur != cur.head();  
+	}
+	public T previous() {
+		if(!hasPrevious() ) {
+			throw new 	MLInvalidAccessException(12);		
+		}  
+
+		list = itnext;
+		itnext = cur;
+		list = list.iterator().getPrevious();
+		t = list.iterator().getData();		 
+		return t; 
+	}
+	// sets the iterator to the begin of the list. 
+	public T goToBegin() {
+		while(this.hasNext()) {
+			t= this.next();
+		}
+
+		return t;
+	}
+	// sets the iterator to the end of the list. 
+	public T goToEnd()   {
+
+		while(this.hasPrevious()) {
+			return t= this.previous();
+		}
+		return t;
+	}
+	// assign v as the value of "data" in the node that is at the current position
+	public void set (T v ) {
+		
+		if(cur.isEmpty() ) {
+			throw new 	MLInvalidAccessException(13);	
+
+		}else {
+			this.cur.iterator().t = v;
+		}
+		
+
+	}
+	// adds a node ("data" = v) after the current position
+	public void add (T v ) {
+		 if(cur.head().equals(null)) {
+			 cur.iterator().getNext().append(v);
+		 }
+		
+	}
+	// removes the node that is at current position
+	public void remove () throws MLInvalidAccessException {
+		if(cur.isEmpty() ) {
+			throw new 	MLInvalidAccessException(14);	
+
+		}else {
+			cur.iterator().setNext(cur);
+		}
+
+	}
+
+}

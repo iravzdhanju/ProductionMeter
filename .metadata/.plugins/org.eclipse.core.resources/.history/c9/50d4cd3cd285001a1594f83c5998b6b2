@@ -1,0 +1,55 @@
+package myPack;
+
+public class MLInvalidListException extends RuntimeException{
+	
+	private int input;
+	
+	private String message;
+		
+		public MLInvalidListException(int input) {
+	
+			super();
+			
+			this.input = input;
+			
+			
+			if (input==1) {
+				 
+				this.message = "Invalid head() call: empty list "   ;
+			}
+				
+			else if (input==2)
+			
+				this.message = "Invalid end() call: empty list ";
+			
+			else if (input==11)
+			
+				this.message =  "Invalid next() call: hasNext() false"; 
+		
+			else if (input==12)
+			
+				this.message =  "Invalid previous() call: hasPrevious()  false"; 
+			
+			else if (input==13)
+			
+				this.message =  "Invalid set(T v) call: undefined current position";
+			 
+			else if (input==14)
+			
+				this.message =  "Invalid remove() call: undefined current position";
+			else 
+			
+				this.message = "Unknown N/A ";
+		}
+		public int getCode() {
+		
+			return this.input;
+		}
+
+		@Override 
+		public String getMessage() {
+			
+			return this.message;
+		}
+		
+}

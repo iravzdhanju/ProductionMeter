@@ -1,0 +1,42 @@
+package myPack;
+
+public class MyInvalidListException {
+	 
+		private String msg;
+		
+		public MyInvalidListException(int code) {
+			super();
+			this.code = code;
+			
+			
+			if (code==1) {
+				 
+				this.msg = "Invalid head() call: empty list "   ;
+			}
+				
+			else if (code==2)
+				this.msg = "Invalid end() call: empty list ";
+			else if (code==11)
+				this.msg =  "Invalid next() call: hasNext() false"; 
+			else if (code==12)
+				this.msg =  "Invalid previous() call: hasPrevious()  false"; 
+			else if (code==13)
+				this.msg =  "Invalid set(T v) call: undefined current position";
+			 
+			else if (code==14)
+				this.msg =  "Invalid remove() call: undefined current position";
+			else 
+				this.msg = "Unknown exception ... ";
+		}
+		public int getCode() {
+			return this.code;
+		}
+
+		
+		
+		@Override 
+		public String getMessage() {
+			return this.msg;
+		}
+		
+}

@@ -1,0 +1,151 @@
+package myPack;
+
+import java.util.ArrayList;
+
+public class MyList<T> {
+
+	private T head;
+	
+	private MyList<T> tail;
+	
+	public MyList() {
+	
+		head = null;
+		
+		tail = null;
+	}
+	// list of a single node, whose member "head" is t. 
+	public MyList(T t) {
+		
+		this.head = t;
+		
+		this.tail = new MyList<T>();
+	}
+	// list whose nodes correspond to the elements of the array t
+	public MyList(T[]  t) {
+		
+		if(t == null) {
+		
+			head = null;
+			
+			tail = null;
+			 
+		 }else {
+			 
+			 MyList<T> list = this;
+			
+			 for (int i = 0; i < t.length; i++) {
+				
+				 list.head = t[i];
+			
+				 list.tail = new MyList<T>();
+				 
+				 list = list.tail;
+			}
+		 }
+	}
+  // returns true if the MyList is empty. 
+	public boolean isEmpty(  ) {
+	 
+		return (this.head == null) && (this.tail==null) ;
+	}
+	
+	public int size() {
+		int i = 0;
+	
+		MyList<T> thisList = this;
+		
+		while(thisList.isEmpty() == false ) {
+		
+			i++;
+			
+			thisList = thisList.tail;
+		}
+		
+		return i;
+	}
+	// return  the array of objects of type T corresponding to MyList
+	public Object[] toArray() {
+		
+		Object[] objectArray = new Object[this.size()];
+		
+		int position = 0;
+		
+		MyList<T> thisList = this;
+		
+		while(thisList.isEmpty() == false) {
+		
+			objectArray[position] = thisList.head;
+			
+			thisList = thisList.tail;
+			
+			position++;
+		}
+		return objectArray;
+	}
+	// returns a copy (a clone) of the MyList. 
+	public MyList<T> copy() {
+		
+		MyList<T> newList = new MyList<T>();
+		
+		MyList<T> thisList = this;
+		
+		while(thisList.isEmpty()==false) {
+			
+			newList.head = thisList.head;
+			newList.tail =thisList.tail;
+					 
+		}
+		return newList;
+	}
+	
+	 
+
+	// return the value of "data" of the first node. 
+	public T head() throws MyInvalidListException {
+		if(this.isEmpty()==true) {
+			throw new MyInvalidListException(1);
+		}else {
+			return this.head;
+	}
+	}
+	 // return the MyList without its first node. 
+	public MyList<T> tail(){
+		return this.tail;
+	}
+	// return the value of "data" of the last node. 
+	public T end() throws MyInvalidListException {
+		MyList<T> thisList = this;
+		
+		if(this.isEmpty()==true) {
+			throw new MyInvalidListException(2);
+		}
+		
+		while(thisList.isEmpty() == false ) {
+			
+			thisList = thisList.tail;
+		}
+		return thisList.head;
+	}
+	// creates a node with "data"=e at the end of the MyList
+	 public void append (T head) { 	 
+		 if(this.isEmpty() ) {
+			 this.head = head;
+			 this.tail = new MyList<T>();
+		 }else {
+			 this.tail.append(head);
+		 }	  
+	 }
+	// concatenates lc at the end of MyList. 
+	public void concat (MyList<T> lc) {
+		if(this.isEmpty()==true) {
+			MyList<T> copyList = lc.copy();	
+			this.head = copyList.head;
+			this.tail = copyList.tail;
+		}else {this.tail.concat(lc);}
+	}
+	// method to initialise the iterator // MyListIterator for the current  // LinkedChain. 
+	MyListIterator<T> iterator() {
+		return (new MyListIterator<T>(this));
+	}
+}

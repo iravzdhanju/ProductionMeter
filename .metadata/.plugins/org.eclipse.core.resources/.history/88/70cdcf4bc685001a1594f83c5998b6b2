@@ -1,0 +1,6 @@
+package myPack;
+
+import java.util.ArrayList;
+public class MyList {
+
+}

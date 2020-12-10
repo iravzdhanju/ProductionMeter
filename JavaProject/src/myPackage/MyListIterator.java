@@ -1,0 +1,154 @@
+package myPackage;
+
+public class MyListIterator<T> {
+	
+	private MyList<T> cur;
+	
+	private MyList<T> itnext; 
+	
+	private MyList<T> list; 
+
+	private T t ;
+	
+	private T[] Ts;
+	
+	private int i ;
+	
+	public MyList<T> getNext(){return this.itnext;}
+	
+	public MyList<T> getPrevious(){return this.list;}
+
+	public void setNext(MyList<T> newNext) {
+	
+		this.itnext = newNext;
+	}
+	public void setPrevious(MyList<T> newPrevious) {
+		
+		this.list = newPrevious;
+	}
+	
+	public T getData() {return this.t;}
+	
+	public void setData(T newData) {
+	
+		this.t = newData;
+	}
+
+	public MyListIterator(MyList<T> a) {
+		
+		super();
+		
+		this.cur = a ;
+		
+		this.itnext = new MyList<T>();
+		
+		this.list = new MyList<T>();
+	
+
+	}
+	public boolean hasNext()  {
+	
+		return cur.iterator().cur.isEmpty();
+	}
+
+
+
+	public T next()  throws MLInvalidListException  {
+
+		if(!hasNext() ) 
+		{
+			throw new 	MLInvalidListException(11);		
+		}  
+
+		list = itnext;
+		
+		itnext = cur;
+		
+		cur = cur.iterator().getNext();
+		
+		t = cur.iterator().getData();		 
+		
+		return t;
+
+	}
+	
+	public boolean hasPrevious() {
+		
+		return cur != cur.head();  
+	}
+	
+	public T previous() {
+	
+		if(!hasPrevious() ) {
+		
+			throw new 	MLInvalidListException(12);		
+		}  
+
+		list = itnext;
+		
+		itnext = cur;
+		
+		list = list.iterator().getPrevious();
+		
+		t = list.iterator().getData();		 
+		
+		return t; 
+	}
+	
+	public T goToBegin() {
+		
+		while(this.hasNext()) {
+		
+			t= this.next();
+		}
+
+		return t;
+	}
+	
+	public T goToEnd()   {
+
+		while(this.hasPrevious()) {
+			
+			return t= this.previous();
+		}
+		return t;
+	}
+
+	public void set (T v ) {
+		
+		if(cur.isEmpty() ) {
+			
+			throw new 	MLInvalidListException(13);	
+
+		}else {
+			
+			this.cur.iterator().t = v;
+		}
+		
+
+	}
+
+	public void add (T v ) {
+	
+		if(cur.head().equals(null)) {
+		
+			cur.iterator().getNext().append(v);
+		 }
+		
+	}
+	
+	public void remove () throws MLInvalidListException {
+	
+		if(cur.isEmpty() ) {
+		
+			throw new 	MLInvalidListException(14);	
+
+		}
+		else {
+			
+			cur.iterator().setNext(cur);
+		}
+
+	}
+
+}
